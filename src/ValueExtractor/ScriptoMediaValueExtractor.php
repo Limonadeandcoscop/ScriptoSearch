@@ -103,12 +103,14 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
         if ($field === 'genre') {
             $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
             $v = $item_set->value('dcterms:type');
+            if (empty($v)) return;
             return $v;
         }
 
         if ($field === 'discipline') {
             $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
             $v = (string)$item_set->value('dcterms:subject');
+            if (empty($v)) return;
             return $v;
         }
     }
@@ -165,12 +167,14 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
         if ($field === 'genre') {
             $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
             $v = (string)$item_set->value('dcterms:type');
+            if (empty($v)) return;
             return $v;
         }
 
         if ($field === 'discipline') {
             $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
             $v = (string)$item_set->value('dcterms:subject');
+            if (empty($v)) return;
             return $v;
         }
     }
