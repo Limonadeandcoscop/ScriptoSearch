@@ -12,4 +12,14 @@ return  [
       'scripto_media' => Service\ValueExtractor\ScriptoMediaValueExtractorFactory::class,
     ],
   ],
+  'view_manager' => [
+        'template_path_stack' => [
+            dirname(__DIR__) . '/view',
+        ],
+    ],
+  'view_helpers' => [
+        'factories' => [
+            'facetLinkRemove' => Service\ViewHelper\FacetLinkRemoveFactory::class,
+        ],
+    ],
 ];
