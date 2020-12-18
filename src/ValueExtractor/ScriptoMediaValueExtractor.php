@@ -39,6 +39,12 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
             'status' => [
                 'label' => 'Media status',
             ],
+            'genre' => [
+                'label' => 'Item set genre',
+            ],
+            'discipline' => [
+                'label' => 'Item set discipline',
+            ],
         ];
         return $fields;
     }
@@ -93,6 +99,18 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
             $v = $sMedia->status();
             return $v;
         }
+
+        if ($field === 'genre') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $v = $item_set->value('dcterms:type');
+            return $v;
+        }
+
+        if ($field === 'discipline') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $v = (string)$item_set->value('dcterms:subject');
+            return $v;
+        }
     }
 
     /**
@@ -141,6 +159,18 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
 
         if ($field === 'status') {
             $v = $sMedia->status();
+            return $v;
+        }
+
+        if ($field === 'genre') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $v = (string)$item_set->value('dcterms:type');
+            return $v;
+        }
+
+        if ($field === 'discipline') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $v = (string)$item_set->value('dcterms:subject');
             return $v;
         }
     }
