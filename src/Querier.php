@@ -74,7 +74,7 @@ class Querier extends AbstractQuerier
         $q = $this->getQueryStringFromSearchQuery($q);
         if (empty($q)) {
             $q = '*:*';
-        } elseif ($q == '__transcriptions__') {
+        } elseif ($q == '__Déchiffrages__') {
             $q = '__TOTRANSCRIBE*';
         }
 
