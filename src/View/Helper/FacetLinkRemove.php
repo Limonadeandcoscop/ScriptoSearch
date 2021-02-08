@@ -14,6 +14,25 @@ class FacetLinkRemove extends AbstractHelper
 
     public function __invoke($name, $facet)
     {
+
+        // Handle multiples -facets on same field
+
+        $params = explode('&limit', urldecode($_SERVER['QUERY_STRING']));
+
+        if (count($params)) {
+            $selected = [];
+            foreach($params as $param) {
+                preg_match('/\[(.*)\]\[0\]/', $param, $matches);
+                if (count($matches) && isset($matches[1])) {
+                    $p = explode('[0]', $param);
+                    $arrayFacets[trim($p[0], '[]')] = ltrim($p[1], '=');
+                    @array_push($selected, $matches[1]);
+                }
+            }
+        }
+
+        if (isset($arrayFacets[$name]) && @$arrayFacets[$name] != $facet['value']) return;
+
         $mvcEvent = $this->application->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
         $request = $mvcEvent->getRequest();
