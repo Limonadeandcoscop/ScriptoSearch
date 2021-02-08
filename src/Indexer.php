@@ -83,6 +83,10 @@ class Indexer extends AbstractIndexer
         $resource_name_field = $solrNodeSettings['resource_name_field'];
         $document->addField($resource_name_field, $resourceName);
 
+        // Handle display status
+        $projectIsPublic = $resource->scriptoItem()->scriptoProject()->isPublic();
+        $document->addField('public', $projectIsPublic);
+
         $solrMappings = $api->search('solr_mappings', [
             'resource_name' => $resourceName,
             'solr_node_id' => $solrNode->id(),
@@ -97,7 +101,7 @@ class Indexer extends AbstractIndexer
 
             $source = $solrMapping->source();
 
-                    $values = $valueExtractor->extractValue($resource, $source);
+            $values = $valueExtractor->extractValue($resource, $source);
 
             if (!is_array($values)) {
                 $values = (array) $values;
@@ -129,6 +133,7 @@ class Indexer extends AbstractIndexer
             $this->getLogger()->err($e);
             $this->getLogger()->err(sprintf('Indexing of resource %s failed', $resource->id()));
         }
+
 
     }
 
