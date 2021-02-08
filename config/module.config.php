@@ -20,6 +20,7 @@ return  [
   'view_helpers' => [
         'factories' => [
             'facetLinkRemove' => Service\ViewHelper\FacetLinkRemoveFactory::class,
+            'facetLinkRefine' => Service\ViewHelper\FacetLinkRefineFactory::class,
         ],
     ],
 ];
