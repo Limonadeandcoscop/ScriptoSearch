@@ -26,7 +26,9 @@ class FacetLinkRefine extends AbstractHelper
                 preg_match('/\[(.*)\]\[0\]/', $param, $matches);
                 if (count($matches) && isset($matches[1])) {
                     $p = explode('[0]', $param);
-                    $arrayFacets[trim($p[0], '[]')] = ltrim($p[1], '=');
+                    $v = ltrim($p[1], '=');
+                    $v = explode('&', $v)[0];
+                    $arrayFacets[trim($p[0], '[]')] = $v;
                     @array_push($selected, $matches[1]);
                 }
             }
