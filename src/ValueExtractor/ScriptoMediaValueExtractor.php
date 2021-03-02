@@ -45,6 +45,9 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
             'discipline' => [
                 'label' => 'Item set discipline',
             ],
+            'institution' => [
+                'label' => 'Institution de conservation',
+            ],
         ];
         return $fields;
     }
@@ -121,6 +124,17 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
             if (empty($v)) return;
             return $v;
         }
+
+        if ($field === 'institution') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $values = $item_set->value('dcterms:publisher', ['type' => 'literal', 'all' => 'true']);
+            $v = [];
+            foreach($values as $value) {
+                $v[] = $value->value();
+            }
+            if (empty($v)) return;
+            return $v;
+        }
     }
 
     /**
@@ -186,6 +200,17 @@ class ScriptoMediaValueExtractor extends AbstractValueExtractor
         if ($field === 'discipline') {
             $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
             $values = $item_set->value('dcterms:subject', ['type' => 'literal', 'all' => 'true']);
+            $v = [];
+            foreach($values as $value) {
+                $v[] = $value->value();
+            }
+            if (empty($v)) return;
+            return $v;
+        }
+
+        if ($field === 'institution') {
+            $item_set = $sMedia->scriptoItem()->scriptoProject()->itemSet();
+            $values = $item_set->value('dcterms:publisher', ['type' => 'literal', 'all' => 'true']);
             $v = [];
             foreach($values as $value) {
                 $v[] = $value->value();
